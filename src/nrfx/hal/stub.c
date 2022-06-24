@@ -3,7 +3,7 @@
 
 void soc_secure_read_deviceid(uint32_t deviceid[2])
 {
-    memset(deviceid, 1, sizeof(deviceid));
+    memset(deviceid, 1, 2*sizeof(*deviceid));
 }
 
 

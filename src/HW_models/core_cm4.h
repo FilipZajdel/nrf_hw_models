@@ -11,6 +11,8 @@
 #ifndef CORE_CM4__
 #define CORE_CM4__
 
+#include <stdint.h>
+
 #define __I
 #define __IO
 #define __O
@@ -46,31 +48,15 @@ extern void NVIC_ClearPendingIRQ(IRQn_Type IRQn);
 #define __NOP()
 #endif
 
-#ifndef __CLREX
-extern void clrex(void);
-#define __CLREX()            clrex()
-#endif /* __CLREX */
 
-#ifndef __STREXB
-extern unsigned int strexb(unsigned int, unsigned int *);
-#define __STREXB(value, ptr) strexb(value, ptr)
-#endif /* __STREXB */
+extern void __CLREX(void);
+extern uint32_t __STREXB(uint8_t, volatile uint8_t *);
+extern uint32_t __LDREXW(volatile uint32_t *);
+extern uint32_t __LDREXB(volatile uint8_t *);
+extern uint32_t __STREXW(uint32_t, volatile uint32_t*);
+extern uint16_t __LDREXH(volatile uint16_t *);
+extern uint32_t __STREXH(uint16_t , volatile uint16_t *);
 
-#ifndef __LDREXW
-extern unsigned int ldrexw(unsigned int *);
-#define __LDREXW(ptr)        ldrexw(ptr)
-#endif /* __LDREXW */
-
-#ifndef __LDREXB
-extern unsigned int ldrexw(unsigned int *);
-#define __LDREXB(ptr)        ldrexb(ptr)
-#endif /* __LDREXW */
-
-
-#ifndef __STREXW
-extern unsigned int strexw(unsigned int, unsigned int*);
-#define __STREXW(value, ptr) strexw(value, ptr)
-#endif /* __STREXW */
 
 #ifndef SCB
 
