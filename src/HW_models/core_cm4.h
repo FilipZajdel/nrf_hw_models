@@ -46,4 +46,46 @@ extern void NVIC_ClearPendingIRQ(IRQn_Type IRQn);
 #define __NOP()
 #endif
 
-#endif 
+#ifndef __CLREX
+extern void clrex(void);
+#define __CLREX()            clrex()
+#endif /* __CLREX */
+
+#ifndef __STREXB
+extern unsigned int strexb(unsigned int, unsigned int *);
+#define __STREXB(value, ptr) strexb(value, ptr)
+#endif /* __STREXB */
+
+#ifndef __LDREXW
+extern unsigned int ldrexw(unsigned int *);
+#define __LDREXW(ptr)        ldrexw(ptr)
+#endif /* __LDREXW */
+
+#ifndef __LDREXB
+extern unsigned int ldrexw(unsigned int *);
+#define __LDREXB(ptr)        ldrexb(ptr)
+#endif /* __LDREXW */
+
+
+#ifndef __STREXW
+extern unsigned int strexw(unsigned int, unsigned int*);
+#define __STREXW(value, ptr) strexw(value, ptr)
+#endif /* __STREXW */
+
+#ifndef SCB
+
+struct scb {
+    unsigned char ICSR;
+};
+
+extern struct scb BSIM_SCB;
+
+#define SCB (&BSIM_SCB)
+#endif
+
+#define SCB_ICSR_VECTACTIVE_Msk (0x01)
+#define SCB_ICSR_VECTACTIVE_Pos (0x01)
+
+#define IRQ_ZERO_LATENCY 0x1
+
+#endif
